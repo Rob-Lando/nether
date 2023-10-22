@@ -14,8 +14,8 @@ type
 proc eth_getBalance(
             provider: Provider,
             address: string,
-            block_number: int = -1,
-            default_block: string = "latest",
+            block_number: string = "",
+            default_block: string = "",
             id: int = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
         ): JsonNode =
@@ -36,6 +36,8 @@ proc eth_getBalance(
             params = [address,default_block]
         else:
             params = [address,fmt"{block_number}"]
+
+        echo params
 
         let data = %*{
             "jsonrpc":"2.0",
@@ -44,18 +46,18 @@ proc eth_getBalance(
             "id":id
         }
 
+
         let 
             response = postContent(client = client, url = url, body = $data)
             responseJson = parseJson(response)
 
         return responseJson
 
-
 proc eth_getTransactionCount(
             provider: Provider,
             address: string,
-            block_number: int = -1,
-            default_block: string = "latest",
+            block_number: string = "",
+            default_block: string = "",
             id: int = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
         ): JsonNode =
@@ -76,6 +78,8 @@ proc eth_getTransactionCount(
             params = [address,default_block]
         else:
             params = [address,fmt"{block_number}"]
+
+        echo params
 
         let data = %*{
             "jsonrpc":"2.0",
