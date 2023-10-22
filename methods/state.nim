@@ -24,15 +24,13 @@ proc eth_getBalance(
             client = newHttpClient()
             params: array[2,string]
             url: string
-            
+        
+        client.headers = headers
+
         if provider.url != "":
             url = provider.url
         else:
             url = fmt"{provider.base_url}/{provider.api_key}"
-        
-        echo url
-
-        client.headers = headers
 
         if default_block != "":
             params = [address,default_block]
