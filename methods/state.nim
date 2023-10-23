@@ -3,15 +3,12 @@ import httpclient
 import std/strformat
 import std/strutils
 import std/re
+from provider import Provider
 
 
-type
-    Provider = object
-        base_url: string = ""
-        api_key: string = ""
-        url: string = ""
 
-proc eth_getBalance(
+
+proc eth_getBalance*(
             provider: Provider,
             address: string,
             block_number: string = "",
@@ -35,9 +32,7 @@ proc eth_getBalance(
         if default_block != "":
             params = [address,default_block]
         else:
-            params = [address,fmt"{block_number}"]
-
-        echo params
+            params = [address,block_number]
 
         let data = %*{
             "jsonrpc":"2.0",
@@ -53,8 +48,11 @@ proc eth_getBalance(
 
         return responseJson
 
-proc eth_getTransactionCount(
-            provider: Provider,
+
+
+
+proc eth_getTransactionCount*(
+            provider: provider.Provider,
             address: string,
             block_number: string = "",
             default_block: string = "",
@@ -77,9 +75,7 @@ proc eth_getTransactionCount(
         if default_block != "":
             params = [address,default_block]
         else:
-            params = [address,fmt"{block_number}"]
-
-        echo params
+            params = [address,block_number]
 
         let data = %*{
             "jsonrpc":"2.0",
