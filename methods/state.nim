@@ -50,6 +50,47 @@ proc eth_getBalance*(
 
 
 
+proc eth_getStorageAt*(
+            provider: Provider,
+            address: string,
+            storage_position: string,
+            block_number: string = "",
+            default_block: string = "",
+            id: int = 1,
+            headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
+        ): JsonNode = 
+
+        var 
+            client = newHttpClient()
+            params: array[3,string]
+            url: string
+        
+        client.headers = headers
+
+        if provider.url != "":
+            url = provider.url
+        else:
+            url = fmt"{provider.base_url}/{provider.api_key}"
+
+        if default_block != "":
+            params = [address,storage_position,default_block]
+        else:
+            params = [address,storage_position,block_number]
+
+        let data = %*{
+            "jsonrpc":"2.0",
+            "method":"eth_getStorageAt",
+            "params": params,
+            "id":id
+        }
+
+        let 
+            response = postContent(client = client, url = url, body = $data)
+            responseJson = parseJson(response)
+        
+        return responseJson
+
+
 
 proc eth_getTransactionCount*(
             provider: provider.Provider,
