@@ -17,6 +17,8 @@ proc eth_getBalance*(
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
         ): JsonNode =
 
+        assert contains(address,re("0x"))
+
         var 
             client = newHttpClient()
             params: array[2,string]
@@ -30,8 +32,10 @@ proc eth_getBalance*(
             url = fmt"{provider.base_url}/{provider.api_key}"
 
         if default_block != "":
+            assert default_block in ["earliest","latest","pending"]
             params = [address,default_block]
         else:
+            assert contains(block_number,re("0x"))
             params = [address,block_number]
 
         let data = %*{
@@ -60,6 +64,8 @@ proc eth_getStorageAt*(
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
         ): JsonNode = 
 
+        assert contains(address,re("0x"))
+
         var 
             client = newHttpClient()
             params: array[3,string]
@@ -73,8 +79,10 @@ proc eth_getStorageAt*(
             url = fmt"{provider.base_url}/{provider.api_key}"
 
         if default_block != "":
+            assert default_block in ["earliest","latest","pending"]
             params = [address,storage_position,default_block]
         else:
+            assert contains(block_number,re("0x"))
             params = [address,storage_position,block_number]
 
         let data = %*{
@@ -101,6 +109,8 @@ proc eth_getTransactionCount*(
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
         ): JsonNode =
 
+        assert contains(address,re("0x"))
+
         var 
             client = newHttpClient()
             params: array[2,string]
@@ -114,8 +124,10 @@ proc eth_getTransactionCount*(
             url = fmt"{provider.base_url}/{provider.api_key}"
 
         if default_block != "":
+            assert default_block in ["earliest","latest","pending"]
             params = [address,default_block]
         else:
+            assert contains(block_number,re("0x"))
             params = [address,block_number]
 
         let data = %*{
