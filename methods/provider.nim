@@ -1,4 +1,3 @@
-
 type
     Provider* = object
         base_url*: string = ""
