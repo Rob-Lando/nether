@@ -39,15 +39,13 @@ proc eth_getBalance*(
             assert contains(block_number,re("0x"))
             params = [address,block_number]
 
-        let data = %*{
-            "jsonrpc":"2.0",
-            "method":"eth_getBalance",
-            "params": params,
-            "id":id
-        }
-
-
         let 
+            data = %*{
+                "jsonrpc":"2.0",
+                "method":"eth_getBalance",
+                "params": params,
+                "id":id
+            }
             response = postContent(client = client, url = url, body = $data)
             responseJson = parseJson(response)
 
@@ -86,14 +84,13 @@ proc eth_getStorageAt*(
             assert contains(block_number,re("0x"))
             params = [address,storage_position,block_number]
 
-        let data = %*{
-            "jsonrpc":"2.0",
-            "method":"eth_getStorageAt",
-            "params": params,
-            "id":id
-        }
-
         let 
+            data = %*{
+                "jsonrpc":"2.0",
+                "method":"eth_getStorageAt",
+                "params": params,
+                "id":id
+            }
             response = postContent(client = client, url = url, body = $data)
             responseJson = parseJson(response)
         
@@ -131,14 +128,13 @@ proc eth_getTransactionCount*(
             assert contains(block_number,re("0x"))
             params = [address,block_number]
 
-        let data = %*{
-            "jsonrpc":"2.0",
-            "method":"eth_getTransactionCount",
-            "params": params,
-            "id":id
-        }
-
         let 
+            data = %*{
+                "jsonrpc":"2.0",
+                "method":"eth_getTransactionCount",
+                "params": params,
+                "id":id
+            }
             response = postContent(client = client, url = url, body = $data)
             responseJson = parseJson(response)
 
@@ -174,14 +170,13 @@ proc eth_getCode*(
             assert contains(block_number,re("0x"))
             params = [address,block_number]
 
-        let data = %*{
-            "jsonrpc":"2.0",
-            "method":"eth_getCode",
-            "params": params,
-            "id":id
-        }
-
         let 
+            data = %*{
+                "jsonrpc":"2.0",
+                "method":"eth_getCode",
+                "params": params,
+                "id":id
+            }
             response = postContent(client = client, url = url, body = $data)
             responseJson = parseJson(response)
 
@@ -210,14 +205,13 @@ proc eth_call*(
         else:
             url = fmt"{provider.base_url}/{provider.api_key}"
 
-        let data = %*{
-            "jsonrpc":"2.0",
-            "method":"eth_call",
-            "params": [transaction_params,block_number_or_default_block],
-            "id":id
-        }
-
         let 
+            data = %*{
+                "jsonrpc":"2.0",
+                "method":"eth_call",
+                "params": [transaction_params,block_number_or_default_block],
+                "id":id
+            }
             response = postContent(client = client, url = url, body = $data)
             responseJson = parseJson(response)
 
@@ -243,14 +237,13 @@ proc eth_estimateGas*(
         else:
             url = fmt"{provider.base_url}/{provider.api_key}"
 
-        let data = %*{
-            "jsonrpc":"2.0", 
-            "method":"eth_estimateGas",
-            "params": [transaction_params,block_number_or_default_block],
-            "id":id
-        }
-
         let 
+            data = %*{
+                "jsonrpc":"2.0", 
+                "method":"eth_estimateGas",
+                "params": [transaction_params,block_number_or_default_block],
+                "id":id
+            }
             response = postContent(client = client, url = url, body = $data)
             responseJson = parseJson(response)
 
