@@ -25,14 +25,13 @@ proc eth_getBlockTransactionCountByHash*(
 
         params = [block_hash]
 
-        let data: JsonNode = %*{
-            "jsonrpc":"2.0",
-            "method":"eth_getBlockTransactionCountByHash",
-            "params": params,
-            "id":id
-        }
-
-        let
+        let 
+            data: JsonNode = %*{
+                "jsonrpc":"2.0",
+                "method":"eth_getBlockTransactionCountByHash",
+                "params": params,
+                "id":id
+            }
             response = postContent(client = client, url = url, body = $data)
             responseJson = parseJson(response)
         
@@ -68,14 +67,13 @@ proc eth_getBlockTransactionCountByNumber*(
             assert contains(block_number,re("0x"))
             params = [block_number]
 
-        let data = %*{
-            "jsonrpc":"2.0",
-            "method":"eth_getBlockTransactionCountByNumber",
-            "params": params,
-            "id":id
-        }
-
         let 
+            data: JsonNode = %*{
+                "jsonrpc":"2.0",
+                "method":"eth_getBlockTransactionCountByNumber",
+                "params": params,
+                "id":id
+            }
             response = postContent(client = client, url = url, body = $data)
             responseJson = parseJson(response)
 
@@ -103,14 +101,13 @@ proc eth_getUncleCountByBlockHash*(
 
         params = [block_hash]
 
-        let data: JsonNode = %*{
-            "jsonrpc":"2.0",
-            "method":"eth_getUncleCountByBlockHash",
-            "params": params,
-            "id":id
-        }
-
-        let
+        let 
+            data: JsonNode = %*{
+                "jsonrpc":"2.0",
+                "method":"eth_getUncleCountByBlockHash",
+                "params": params,
+                "id":id
+            }
             response = postContent(client = client, url = url, body = $data)
             responseJson = parseJson(response)
         

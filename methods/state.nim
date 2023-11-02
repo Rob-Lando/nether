@@ -39,7 +39,7 @@ proc eth_getBalance*(
             params = [address,block_number]
 
         let 
-            data = %*{
+            data: JsonNode = %*{
                 "jsonrpc":"2.0",
                 "method":"eth_getBalance",
                 "params": params,
@@ -84,7 +84,7 @@ proc eth_getStorageAt*(
             params = [address,storage_position,block_number]
 
         let 
-            data = %*{
+            data: JsonNode = %*{
                 "jsonrpc":"2.0",
                 "method":"eth_getStorageAt",
                 "params": params,
@@ -128,7 +128,7 @@ proc eth_getTransactionCount*(
             params = [address,block_number]
 
         let 
-            data = %*{
+            data: JsonNode = %*{
                 "jsonrpc":"2.0",
                 "method":"eth_getTransactionCount",
                 "params": params,
@@ -172,7 +172,7 @@ proc eth_getCode*(
             params = [address,block_number]
 
         let 
-            data = %*{
+            data: JsonNode = %*{
                 "jsonrpc":"2.0",
                 "method":"eth_getCode",
                 "params": params,
@@ -206,7 +206,7 @@ proc eth_call*(
             url = fmt"{provider.base_url}/{provider.api_key}"
 
         let 
-            data = %*{
+            data: JsonNode = %*{
                 "jsonrpc":"2.0",
                 "method":"eth_call",
                 "params": [transaction_params,block_number_or_default_block],
@@ -240,7 +240,7 @@ proc eth_estimateGas*(
             url = fmt"{provider.base_url}/{provider.api_key}"
 
         let 
-            data = %*{
+            data: JsonNode = %*{
                 "jsonrpc":"2.0", 
                 "method":"eth_estimateGas",
                 "params": [transaction_params,block_number_or_default_block],
