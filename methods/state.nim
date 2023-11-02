@@ -8,7 +8,6 @@ from provider import Provider
 
 
 
-
 proc eth_getBalance*(
             provider: Provider,
             address: string,
@@ -140,6 +139,8 @@ proc eth_getTransactionCount*(
 
         return responseJson
 
+
+
 proc eth_getCode*(
             provider: provider.Provider,
             address: string,
@@ -184,7 +185,6 @@ proc eth_getCode*(
 
 
 
-
 proc eth_call*(
             provider: provider.Provider,
             transaction_params: Table,
@@ -217,6 +217,8 @@ proc eth_call*(
 
         return responseJson
 
+
+
 proc eth_estimateGas*(
             provider: provider.Provider,
             transaction_params: Table,
@@ -248,4 +250,5 @@ proc eth_estimateGas*(
             responseJson = parseJson(response)
 
         return responseJson
-    
+
+
