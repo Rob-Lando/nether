@@ -6,7 +6,7 @@ import std/re
 from provider import Provider
 
 
-proc eth_blockNumber(
+proc eth_blockNumber*(
             provider: Provider,
             id: int = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
@@ -36,7 +36,7 @@ proc eth_blockNumber(
 
 
 
-proc eth_getBalance(
+proc eth_getBalance*(
             provider: Provider,
             address: string = "",
             block_number: string = "",
