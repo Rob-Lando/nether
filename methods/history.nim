@@ -335,7 +335,7 @@ proc eth_getTransactionReciept*(
 proc eth_getUncleByBlockHashAndIndex*(
             provider: Provider,
             block_hash: string = "",
-            index: string = "0x0"
+            index: string = "0x0",
             id = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
         ): JsonNode =
@@ -369,7 +369,7 @@ proc eth_getUncleByBlockNumberAndIndex*(
             provider: Provider,
             block_number: string = "",
             default_block: string = "latest",
-            index: string = "0x0"
+            index: string = "0x0",
             id = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
         ): JsonNode =
