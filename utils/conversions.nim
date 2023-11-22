@@ -4,7 +4,7 @@ import std/math
 
 
 
-proc convert(amount: auto, base:string, target:string): float = 
+proc convert*(amount: auto, base:string, target:string): float = 
 
     assert target in ["Eth","Gwei","Wei"]
     assert base in ["Eth","Gwei","Wei"]
