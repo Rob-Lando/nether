@@ -62,10 +62,10 @@ proc eth_getBlockTransactionCountByNumber*(
 
         if block_number != "":
             assert contains(block_number,re("0x"))
-            params = [block_number,return_full]
+            params = [block_number]
         else:
             assert default_block in ["earliest","latest","pending"]
-            params = [default_block,return_full]
+            params = [default_block]
 
         let 
             data: JsonNode = %*{
@@ -282,10 +282,10 @@ proc eth_getTransactionByBlockNumberAndIndex*(
 
         if block_number != "":
             assert contains(block_number,re("0x"))
-            params = [block_number,return_full]
+            params = [block_number,index]
         else:
             assert default_block in ["earliest","latest","pending"]
-            params = [default_block,return_full]
+            params = [default_block,index]
 
         let 
             data: JsonNode = %*{
@@ -386,10 +386,10 @@ proc eth_getUncleByBlockNumberAndIndex*(
 
         if block_number != "":
             assert contains(block_number,re("0x"))
-            params = [block_number,return_full]
+            params = [block_number,index]
         else:
             assert default_block in ["earliest","latest","pending"]
-            params = [default_block,return_full]
+            params = [default_block,index]
 
         let 
             data: JsonNode = %*{
