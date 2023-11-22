@@ -229,7 +229,7 @@ proc eth_getTransactionByHash*(
 proc eth_getTransactionByBlockHashAndIndex*(
             provider: Provider,
             tx_hash: string = "",
-            index: string = "0x0"
+            index: string = "0x0",
             id = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
         ): JsonNode =
@@ -265,7 +265,7 @@ proc eth_getTransactionByBlockNumberAndIndex*(
             provider: Provider,
             block_number: string = "",
             default_block: string = "latest",
-            index: string = "0x0"
+            index: string = "0x0",
             id = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
         ): JsonNode =
@@ -279,7 +279,7 @@ proc eth_getTransactionByBlockNumberAndIndex*(
             url = provider.url
         else:
             url = fmt"{provider.base_url}/{provider.api_key}"
-            
+
         if block_number != "":
             assert contains(block_number,re("0x"))
             params = [block_number,return_full]
