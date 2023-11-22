@@ -126,7 +126,7 @@ proc eth_getBlockByHash*(
 
         var 
             client = newHttpClient()
-            params: array[2,auto]
+            params: array[2,string]
             url: string
             
         if provider.url != "":
@@ -134,7 +134,7 @@ proc eth_getBlockByHash*(
         else:
             url = fmt"{provider.base_url}/{provider.api_key}"
 
-        params = [block_hash,return_full]
+        params = [block_hash,fmt"{return_full}"]
 
         let 
             data: JsonNode = %*{
@@ -162,7 +162,7 @@ proc eth_getBlockByNumber*(
 
         var 
             client = newHttpClient()
-            params: array[2,auto]
+            params: array[2,string]
             url: string
             
         if provider.url != "":
@@ -172,10 +172,10 @@ proc eth_getBlockByNumber*(
 
         if block_number != "":
             assert contains(block_number,re("0x"))
-            params = [block_number,return_full]
+            params = [block_number,fmt"{return_full}"]
         else:
             assert default_block in ["earliest","latest","pending"]
-            params = [default_block,return_full]
+            params = [default_block,fmt"{return_full}"]
 
         let 
             data: JsonNode = %*{
