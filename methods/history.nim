@@ -257,3 +257,147 @@ proc eth_getTransactionByBlockHashAndIndex*(
             responseJson = parseJson(response)
         
         return responseJson
+
+
+
+
+proc eth_getTransactionByBlockNumberAndIndex*(
+            provider: Provider,
+            block_number: string = "",
+            default_block: string = "",
+            index: string = "0x0"
+            id = 1,
+            headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
+        ): JsonNode =
+
+        var 
+            client = newHttpClient()
+            params: array[1,string]
+            url: string
+            
+        if provider.url != "":
+            url = provider.url
+        else:
+            url = fmt"{provider.base_url}/{provider.api_key}"
+
+        if default_block != "":
+            assert default_block in ["earliest","latest","pending"]
+            params = [default_block,return_full]
+        else:
+            assert contains(block_number,re("0x"))
+            params = [block_number,return_full]
+
+        let 
+            data: JsonNode = %*{
+                "jsonrpc":"2.0",
+                "method":"eth_getTransactionByBlockNumberAndIndex",
+                "params": params,
+                "id":id
+            }
+            response = postContent(client = client, url = url, body = $data)
+            responseJson = parseJson(response)
+
+
+
+
+proc eth_getTransactionReciept*(
+            provider: Provider,
+            tx_hash: string = "",
+            id = 1,
+            headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
+        ): JsonNode =
+
+        var 
+            client = newHttpClient()
+            params: array[1,string]
+            url: string
+            
+        if provider.url != "":
+            url = provider.url
+        else:
+            url = fmt"{provider.base_url}/{provider.api_key}"
+
+        params = [tx_hash]
+
+        let 
+            data: JsonNode = %*{
+                "jsonrpc":"2.0",
+                "method":"eth_getTransactionReciept",
+                "params": params,
+                "id":id
+            }
+            response = postContent(client = client, url = url, body = $data)
+            responseJson = parseJson(response)
+
+
+
+
+proc eth_getUncleByBlockHashAndIndex*(
+            provider: Provider,
+            block_hash: string = "",
+            index: string = "0x0"
+            id = 1,
+            headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
+        ): JsonNode =
+
+        var 
+            client = newHttpClient()
+            params: array[1,string]
+            url: string
+            
+        if provider.url != "":
+            url = provider.url
+        else:
+            url = fmt"{provider.base_url}/{provider.api_key}"
+
+        params = [block_hash,index]
+
+        let 
+            data: JsonNode = %*{
+                "jsonrpc":"2.0",
+                "method":"eth_getUncleByBlockHashAndIndex",
+                "params": params,
+                "id":id
+            }
+            response = postContent(client = client, url = url, body = $data)
+            responseJson = parseJson(response)
+
+
+
+
+proc eth_getUncleByBlockNumberAndIndex*(
+            provider: Provider,
+            block_number: string = "",
+            default_block: string = "",
+            index: string = "0x0"
+            id = 1,
+            headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
+        ): JsonNode =
+
+        var 
+            client = newHttpClient()
+            params: array[1,string]
+            url: string
+            
+        if provider.url != "":
+            url = provider.url
+        else:
+            url = fmt"{provider.base_url}/{provider.api_key}"
+
+        if default_block != "":
+            assert default_block in ["earliest","latest","pending"]
+            params = [default_block,return_full]
+        else:
+            assert contains(block_number,re("0x"))
+            params = [block_number,return_full]
+
+        let 
+            data: JsonNode = %*{
+                "jsonrpc":"2.0",
+                "method":"eth_getUncleByBlockHashAndIndex",
+                "params": params,
+                "id":id
+            }
+            response = postContent(client = client, url = url, body = $data)
+            responseJson = parseJson(response)
+            
