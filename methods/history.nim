@@ -43,7 +43,7 @@ proc eth_getBlockTransactionCountByHash*(
 proc eth_getBlockTransactionCountByNumber*(
             provider: Provider,
             block_number: string = "",
-            default_block: string = "",
+            default_block: string = "latesr",
             id: int = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
         ): JsonNode =
@@ -60,12 +60,12 @@ proc eth_getBlockTransactionCountByNumber*(
         else:
             url = fmt"{provider.base_url}/{provider.api_key}"
 
-        if default_block != "":
-            assert default_block in ["earliest","latest","pending"]
-            params = [default_block]
-        else:
+        if block_number != "":
             assert contains(block_number,re("0x"))
-            params = [block_number]
+            params = [block_number,return_full]
+        else:
+            assert default_block in ["earliest","latest","pending"]
+            params = [default_block,return_full]
 
         let 
             data: JsonNode = %*{
@@ -126,7 +126,7 @@ proc eth_getBlockByHash*(
 
         var 
             client = newHttpClient()
-            params: array[1,string]
+            params: array[2,any]
             url: string
             
         if provider.url != "":
@@ -154,7 +154,7 @@ proc eth_getBlockByHash*(
 proc eth_getBlockByNumber*(
             provider: Provider,
             block_number: string = "",
-            default_block: string = "",
+            default_block: string = "latest",
             return_full: bool = False,
             id = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
@@ -162,7 +162,7 @@ proc eth_getBlockByNumber*(
 
         var 
             client = newHttpClient()
-            params: array[1,string]
+            params: array[2,any]
             url: string
             
         if provider.url != "":
@@ -170,12 +170,12 @@ proc eth_getBlockByNumber*(
         else:
             url = fmt"{provider.base_url}/{provider.api_key}"
 
-        if default_block != "":
-            assert default_block in ["earliest","latest","pending"]
-            params = [default_block,return_full]
-        else:
+        if block_number != "":
             assert contains(block_number,re("0x"))
             params = [block_number,return_full]
+        else:
+            assert default_block in ["earliest","latest","pending"]
+            params = [default_block,return_full]
 
         let 
             data: JsonNode = %*{
@@ -236,7 +236,7 @@ proc eth_getTransactionByBlockHashAndIndex*(
 
         var 
             client = newHttpClient()
-            params: array[1,string]
+            params: array[2,string]
             url: string
             
         if provider.url != "":
@@ -264,7 +264,7 @@ proc eth_getTransactionByBlockHashAndIndex*(
 proc eth_getTransactionByBlockNumberAndIndex*(
             provider: Provider,
             block_number: string = "",
-            default_block: string = "",
+            default_block: string = "latest",
             index: string = "0x0"
             id = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
@@ -272,20 +272,20 @@ proc eth_getTransactionByBlockNumberAndIndex*(
 
         var 
             client = newHttpClient()
-            params: array[1,string]
+            params: array[2,string]
             url: string
             
         if provider.url != "":
             url = provider.url
         else:
             url = fmt"{provider.base_url}/{provider.api_key}"
-
-        if default_block != "":
-            assert default_block in ["earliest","latest","pending"]
-            params = [default_block,return_full]
-        else:
+            
+        if block_number != "":
             assert contains(block_number,re("0x"))
             params = [block_number,return_full]
+        else:
+            assert default_block in ["earliest","latest","pending"]
+            params = [default_block,return_full]
 
         let 
             data: JsonNode = %*{
@@ -342,7 +342,7 @@ proc eth_getUncleByBlockHashAndIndex*(
 
         var 
             client = newHttpClient()
-            params: array[1,string]
+            params: array[2,string]
             url: string
             
         if provider.url != "":
@@ -368,7 +368,7 @@ proc eth_getUncleByBlockHashAndIndex*(
 proc eth_getUncleByBlockNumberAndIndex*(
             provider: Provider,
             block_number: string = "",
-            default_block: string = "",
+            default_block: string = "latest",
             index: string = "0x0"
             id = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
@@ -376,7 +376,7 @@ proc eth_getUncleByBlockNumberAndIndex*(
 
         var 
             client = newHttpClient()
-            params: array[1,string]
+            params: array[2,string]
             url: string
             
         if provider.url != "":
@@ -384,12 +384,12 @@ proc eth_getUncleByBlockNumberAndIndex*(
         else:
             url = fmt"{provider.base_url}/{provider.api_key}"
 
-        if default_block != "":
-            assert default_block in ["earliest","latest","pending"]
-            params = [default_block,return_full]
-        else:
+        if block_number != "":
             assert contains(block_number,re("0x"))
             params = [block_number,return_full]
+        else:
+            assert default_block in ["earliest","latest","pending"]
+            params = [default_block,return_full]
 
         let 
             data: JsonNode = %*{
@@ -400,4 +400,3 @@ proc eth_getUncleByBlockNumberAndIndex*(
             }
             response = postContent(client = client, url = url, body = $data)
             responseJson = parseJson(response)
-            
