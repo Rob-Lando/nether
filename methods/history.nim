@@ -119,7 +119,7 @@ proc eth_getUncleCountByBlockHash*(
 proc eth_getBlockByHash*(
             provider: Provider,
             block_hash: string = "",
-            return_full: bool = False,
+            return_full: bool = false,
             id = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
         ): JsonNode =
@@ -155,7 +155,7 @@ proc eth_getBlockByNumber*(
             provider: Provider,
             block_number: string = "",
             default_block: string = "latest",
-            return_full: bool = False,
+            return_full: bool = false,
             id = 1,
             headers: HttpHeaders = newHttpHeaders({"Content-Type":"application/json"})
         ): JsonNode =
