@@ -126,7 +126,7 @@ proc eth_getBlockByHash*(
 
         var 
             client = newHttpClient()
-            params: array[2,any]
+            params: array[2,auto]
             url: string
             
         if provider.url != "":
@@ -162,7 +162,7 @@ proc eth_getBlockByNumber*(
 
         var 
             client = newHttpClient()
-            params: array[2,any]
+            params: array[2,auto]
             url: string
             
         if provider.url != "":
