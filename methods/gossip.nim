@@ -52,19 +52,19 @@ proc eth_getBalance(
         else:
             url = fmt"{provider.base_url}/{provider.api_key}"
 
-        if default_block != "":
-            assert default_block in ["earliest","latest","pending"]
-            params = [address,efault_block]
-        else:
+        if block_number != "":
             assert contains(block_number,re("0x"))
-            params = [address,block_number]
+            params = [block_number,return_full]
+        else:
+            assert default_block in ["earliest","latest","pending"]
+            params = [default_block,return_full]
 
 
         let 
             data: JsonNode = %*{
                 "jsonrpc":"2.0",
                 "method":"eth_getBalance",
-                "params": [],
+                "params": params,
                 "id":id
             }
             response = postContent(client = client, url = url, body = $data)
