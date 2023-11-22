@@ -34,6 +34,8 @@ proc eth_blockNumber(
         return responseJson
 
 
+
+
 proc eth_getBalance(
             provider: Provider,
             address: string = "",
